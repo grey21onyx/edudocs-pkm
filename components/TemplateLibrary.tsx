@@ -14,7 +14,7 @@ const SAMPLE_TEMPLATES: Template[] = [
     description: 'Struktur modul komprehensif yang sesuai dengan standar 2024. Mencakup rincian kegiatan.',
     type: DocumentType.TEACHING_MODULE,
     isVerified: true,
-    thumbnailUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaCOvnQI7KzVcF-gnvS_cmxSQJwmEuuQ3Frg&s'
+    thumbnailUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy-H4PKshk69pRLj3o9pM68uk7DjdSesyyHQ&s'
   },
   {
     id: 't2',
@@ -22,7 +22,7 @@ const SAMPLE_TEMPLATES: Template[] = [
     description: 'Format ringkas untuk melaporkan kegiatan kelas mingguan dan ringkasan kemajuan siswa.',
     type: DocumentType.ACTIVITY_REPORT,
     isVerified: true,
-    thumbnailUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaCOvnQI7KzVcF-gnvS_cmxSQJwmEuuQ3Frg&s'
+    thumbnailUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy-H4PKshk69pRLj3o9pM68uk7DjdSesyyHQ&s'
   },
   {
     id: 't3',
@@ -30,7 +30,7 @@ const SAMPLE_TEMPLATES: Template[] = [
     description: 'Tata letak penilaian diri bagi siswa untuk merefleksikan perjalanan belajar mereka di akhir unit.',
     type: DocumentType.REFLECTION_SHEET,
     isVerified: false,
-    thumbnailUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaCOvnQI7KzVcF-gnvS_cmxSQJwmEuuQ3Frg&s'
+    thumbnailUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy-H4PKshk69pRLj3o9pM68uk7DjdSesyyHQ&s'
   },
   {
     id: 't4',
@@ -38,7 +38,7 @@ const SAMPLE_TEMPLATES: Template[] = [
     description: 'Templat khusus untuk implementasi PjBL dengan fase yang berbeda untuk inkuiri dan kreasi.',
     type: DocumentType.LESSON_PLAN,
     isVerified: true,
-    thumbnailUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaCOvnQI7KzVcF-gnvS_cmxSQJwmEuuQ3Frg&s'
+    thumbnailUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy-H4PKshk69pRLj3o9pM68uk7DjdSesyyHQ&s'
   }
 ];
 
