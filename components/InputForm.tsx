@@ -34,8 +34,8 @@ export const InputForm: React.FC<InputFormProps> = ({ document, onUpdate, onNavi
 
   const handleAiGenerate = async (section: keyof DocContent) => {
     if (!formData.title) {
-        alert("Please enter a Document Title first to help the AI understand context.");
-        return;
+      alert("Harap masukkan Judul Dokumen terlebih dahulu agar AI memahami konteksnya.");
+      return;
     }
     setGeneratingSection(section);
     const result = await generateLessonContent(formData.title, section);
@@ -55,34 +55,34 @@ export const InputForm: React.FC<InputFormProps> = ({ document, onUpdate, onNavi
   };
 
   return (
-    <div className="flex flex-col h-full bg-slate-50">
+    <div className="flex flex-col h-full bg-neutral-bg">
       {/* Top Bar */}
-      <div className="bg-white border-b border-slate-200 px-8 py-4 sticky top-0 z-10 flex items-center justify-between shadow-sm">
+      <div className="bg-white border-b border-secondary-light px-8 py-4 sticky top-0 z-10 flex items-center justify-between shadow-sm">
         <div className="flex items-center gap-4">
-          <button onClick={() => onNavigate(ViewState.DASHBOARD)} className="text-slate-500 hover:text-slate-800 transition-colors">
+          <button onClick={() => onNavigate(ViewState.DASHBOARD)} className="text-neutral-text-secondary hover:text-neutral-text-primary transition-colors">
             <ArrowLeft size={20} />
           </button>
           <div>
-            <input 
-              type="text" 
+            <input
+              type="text"
               value={formData.title}
               onChange={(e) => handleChange('title', e.target.value)}
-              placeholder="Untitled Document"
-              className="text-lg font-bold text-slate-800 border-none focus:ring-0 p-0 placeholder-slate-300 w-96 bg-transparent"
+              placeholder="Dokumen Tanpa Judul"
+              className="text-lg font-bold text-neutral-text-primary border-none focus:ring-0 p-0 placeholder-neutral-text-secondary w-96 bg-transparent outline-none"
             />
-            <div className="flex items-center gap-2 text-xs mt-1 text-slate-400">
-               <span>{isAutoSaving ? 'Saving...' : 'All changes saved automatically'}</span>
-               {isAutoSaving && <Loader2 size={10} className="animate-spin" />}
+            <div className="flex items-center gap-2 text-xs mt-1 text-secondary">
+              <span>{isAutoSaving ? 'Menyimpan...' : 'Perubahan tersimpan otomatis'}</span>
+              {isAutoSaving && <Loader2 size={10} className="animate-spin" />}
             </div>
           </div>
         </div>
-        
+
         <div className="flex items-center gap-4">
           <div className="flex flex-col items-end mr-2">
-            <span className="text-xs font-semibold text-slate-500 mb-1">{calculateProgress()}% Completed</span>
-            <div className="w-32 h-1.5 bg-slate-100 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-indigo-600 transition-all duration-500 ease-out"
+            <span className="text-xs font-semibold text-secondary mb-1">{calculateProgress()}% Selesai</span>
+            <div className="w-32 h-1.5 bg-secondary-light rounded-full overflow-hidden">
+              <div
+                className="h-full bg-primary transition-all duration-500 ease-out"
                 style={{ width: `${calculateProgress()}%` }}
               ></div>
             </div>
@@ -93,120 +93,120 @@ export const InputForm: React.FC<InputFormProps> = ({ document, onUpdate, onNavi
       {/* Main Content Form */}
       <div className="flex-1 overflow-y-auto p-8 scroll-smooth">
         <div className="max-w-3xl mx-auto space-y-10 pb-24">
-            
-            {/* Meta Data Section */}
-            <div className="grid grid-cols-2 gap-6 p-6 bg-white rounded-xl shadow-sm border border-slate-200">
-                <div className="col-span-2">
-                    <h3 className="text-sm font-semibold text-slate-800 uppercase tracking-wide mb-4">Document Details</h3>
-                </div>
-                <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Class / Grade</label>
-                    <input 
-                        type="text" 
-                        className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
-                        value={formData.classGrade || ''}
-                        onChange={(e) => handleChange('classGrade', e.target.value)}
-                        placeholder="e.g. Grade 10 Science"
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Semester</label>
-                    <select 
-                         className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none bg-white"
-                         value={formData.semester || ''}
-                         onChange={(e) => handleChange('semester', e.target.value)}
-                    >
-                        <option value="">Select Semester</option>
-                        <option value="Odd">Odd Semester</option>
-                        <option value="Even">Even Semester</option>
-                    </select>
-                </div>
-            </div>
 
-            {/* Input Sections */}
-            {[
-                { 
-                    id: 'outcomes', 
-                    label: 'Learning Outcomes', 
-                    tooltip: 'What will students achieve by the end of this module? Use measurable verbs.',
-                    placeholder: '- Students will be able to define...\n- Students will analyze...' 
-                },
-                { 
-                    id: 'objectives', 
-                    label: 'Learning Objectives', 
-                    tooltip: 'Specific, granular goals for this particular lesson sequence.',
-                    placeholder: '1. Identify the key components of...\n2. Compare and contrast...' 
-                },
-                { 
-                    id: 'activities', 
-                    label: 'Activity Steps', 
-                    tooltip: 'Detailed chronological steps for the lesson. Include timestamps.',
-                    placeholder: 'Introduction (10 mins):\n- Teacher greets students...\n\nMain Activity (40 mins):\n- Group work on...' 
-                },
-                { 
-                    id: 'assessments', 
-                    label: 'Assessment Instruments', 
-                    tooltip: 'How will you evaluate student understanding? (Quizzes, Observation, Projects)',
-                    placeholder: 'Formative:\n- Exit ticket question...\n\nSummative:\n- Final project rubric...' 
-                },
-            ].map((section) => (
-                <div key={section.id} className="group relative bg-white p-6 rounded-xl shadow-sm border border-slate-200 transition-all hover:shadow-md hover:border-indigo-200">
-                    <div className="flex justify-between items-start mb-3">
-                        <div>
-                            <label className="block text-lg font-semibold text-slate-800">{section.label}</label>
-                            <p className="text-sm text-slate-500 mt-1">{section.tooltip}</p>
-                        </div>
-                        <button 
-                            onClick={() => handleAiGenerate(section.id as keyof DocContent)}
-                            disabled={generatingSection === section.id}
-                            className={`flex items-center gap-2 text-xs font-medium px-3 py-1.5 rounded-full border transition-all
-                                ${generatingSection === section.id 
-                                    ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-wait' 
-                                    : 'bg-purple-50 text-purple-700 border-purple-200 hover:bg-purple-100'}`}
-                        >
-                            {generatingSection === section.id ? <Loader2 size={12} className="animate-spin" /> : <Wand2 size={12} />}
-                            {generatingSection === section.id ? 'Thinking...' : 'AI Assist'}
-                        </button>
-                    </div>
-                    <textarea 
-                        className="w-full min-h-[160px] p-4 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none resize-y leading-relaxed"
-                        placeholder={section.placeholder}
-                        value={(formData.content as any)[section.id]}
-                        onChange={(e) => handleChange(section.id, e.target.value)}
-                    />
+          {/* Meta Data Section */}
+          <div className="grid grid-cols-2 gap-6 p-6 bg-white rounded-xl shadow-sm border border-secondary-light">
+            <div className="col-span-2">
+              <h3 className="text-sm font-semibold text-neutral-text-primary uppercase tracking-wide mb-4">Detail Dokumen</h3>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-neutral-text-secondary mb-1">Kelas / Tingkat</label>
+              <input
+                type="text"
+                className="w-full border border-secondary-light rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-neutral-text-primary placeholder-neutral-text-secondary"
+                value={formData.classGrade || ''}
+                onChange={(e) => handleChange('classGrade', e.target.value)}
+                placeholder="Contoh: Kelas 10 IPA"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-neutral-text-secondary mb-1">Semester</label>
+              <select
+                className="w-full border border-secondary-light rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none bg-white text-neutral-text-primary"
+                value={formData.semester || ''}
+                onChange={(e) => handleChange('semester', e.target.value)}
+              >
+                <option value="">Pilih Semester</option>
+                <option value="Ganjil">Semester Ganjil</option>
+                <option value="Genap">Semester Genap</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Input Sections */}
+          {[
+            {
+              id: 'outcomes',
+              label: 'Capaian Pembelajaran',
+              tooltip: 'Apa yang akan dicapai siswa di akhir modul ini? Gunakan kata kerja terukur.',
+              placeholder: '- Siswa mampu mendefinisikan...\n- Siswa akan menganalisis...'
+            },
+            {
+              id: 'objectives',
+              label: 'Tujuan Pembelajaran',
+              tooltip: 'Tujuan spesifik dan terperinci untuk urutan pelajaran ini.',
+              placeholder: '1. Mengidentifikasi komponen kunci dari...\n2. Membandingkan dan membedakan...'
+            },
+            {
+              id: 'activities',
+              label: 'Langkah Kegiatan',
+              tooltip: 'Langkah kronologis rinci untuk pelajaran. Sertakan durasi waktu.',
+              placeholder: 'Pendahuluan (10 mnt):\n- Guru menyapa siswa...\n\nKegiatan Inti (40 mnt):\n- Kerja kelompok tentang...'
+            },
+            {
+              id: 'assessments',
+              label: 'Instrumen Penilaian',
+              tooltip: 'Bagaimana Anda mengevaluasi pemahaman siswa? (Kuis, Observasi, Proyek)',
+              placeholder: 'Formatif:\n- Tiket keluar...\n\nSumatif:\n- Rubrik proyek akhir...'
+            },
+          ].map((section) => (
+            <div key={section.id} className="group relative bg-white p-6 rounded-xl shadow-sm border border-secondary-light transition-all hover:shadow-md hover:border-primary-light">
+              <div className="flex justify-between items-start mb-3">
+                <div>
+                  <label className="block text-lg font-semibold text-neutral-text-primary">{section.label}</label>
+                  <p className="text-sm text-neutral-text-secondary mt-1">{section.tooltip}</p>
                 </div>
-            ))}
+                <button
+                  onClick={() => handleAiGenerate(section.id as keyof DocContent)}
+                  disabled={generatingSection === section.id}
+                  className={`flex items-center gap-2 text-xs font-medium px-3 py-1.5 rounded-full border transition-all
+                                ${generatingSection === section.id
+                      ? 'bg-secondary-light text-secondary border-secondary cursor-wait'
+                      : 'bg-indigo-50 text-primary border-primary-light hover:bg-primary-light'}`}
+                >
+                  {generatingSection === section.id ? <Loader2 size={12} className="animate-spin" /> : <Wand2 size={12} />}
+                  {generatingSection === section.id ? 'Berpikir...' : 'Bantuan AI'}
+                </button>
+              </div>
+              <textarea
+                className="w-full min-h-[160px] p-4 bg-neutral-bg border border-secondary-light rounded-lg text-neutral-text-primary focus:bg-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none resize-y leading-relaxed"
+                placeholder={section.placeholder}
+                value={(formData.content as any)[section.id]}
+                onChange={(e) => handleChange(section.id, e.target.value)}
+              />
+            </div>
+          ))}
         </div>
       </div>
 
       {/* Sticky Bottom Action Bar */}
-      <div className="bg-white border-t border-slate-200 p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
+      <div className="bg-white border-t border-secondary-light p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-            <button 
-                onClick={() => onNavigate(ViewState.DASHBOARD)}
-                className="px-6 py-2 text-slate-600 font-medium hover:bg-slate-100 rounded-lg transition-colors"
+          <button
+            onClick={() => onNavigate(ViewState.DASHBOARD)}
+            className="px-6 py-2 text-neutral-text-secondary font-medium hover:bg-neutral-bg rounded-lg transition-colors"
+          >
+            Kembali ke Dashboard
+          </button>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => onUpdate(formData)}
+              className="flex items-center gap-2 px-6 py-2.5 bg-white border border-secondary-light text-neutral-text-primary font-medium rounded-lg hover:bg-neutral-bg transition-colors"
             >
-                Back to Dashboard
+              <Save size={18} />
+              Simpan Draf
             </button>
-            <div className="flex items-center gap-4">
-                <button 
-                    onClick={() => onUpdate(formData)}
-                    className="flex items-center gap-2 px-6 py-2.5 bg-white border border-slate-300 text-slate-700 font-medium rounded-lg hover:bg-slate-50 transition-colors"
-                >
-                    <Save size={18} />
-                    Save Draft
-                </button>
-                <button 
-                    onClick={() => {
-                        onUpdate(formData);
-                        onNavigate(ViewState.PREVIEW);
-                    }}
-                    className="flex items-center gap-2 px-8 py-2.5 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 shadow-md shadow-indigo-200 transition-all transform hover:-translate-y-0.5"
-                >
-                    <Eye size={18} />
-                    Continue to Preview
-                </button>
-            </div>
+            <button
+              onClick={() => {
+                onUpdate(formData);
+                onNavigate(ViewState.PREVIEW);
+              }}
+              className="flex items-center gap-2 px-8 py-2.5 bg-primary text-white font-medium rounded-lg hover:bg-primary-hover shadow-md shadow-primary-light transition-all transform hover:-translate-y-0.5"
+            >
+              <Eye size={18} />
+              Lanjut ke Pratinjau
+            </button>
+          </div>
         </div>
       </div>
     </div>

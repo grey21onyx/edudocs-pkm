@@ -4,30 +4,33 @@ const apiKey = process.env.API_KEY || '';
 const ai = new GoogleGenAI({ apiKey });
 
 export const generateLessonContent = async (
-  topic: string, 
+  topic: string,
   section: 'outcomes' | 'objectives' | 'activities' | 'assessments'
 ): Promise<string> => {
   if (!apiKey) {
-    console.warn("No API Key provided for Gemini");
-    return "AI generation unavailable without API Key.";
+    console.warn("Tidak ada API Key yang disediakan untuk Gemini");
+    return "Pembuatan konten AI tidak tersedia tanpa API Key.";
   }
 
   const prompts = {
-    outcomes: `Generate 3-4 clear, measurable learning outcomes for a school lesson about "${topic}". Format as a bulleted list.`,
-    objectives: `Write specific learning objectives for students studying "${topic}". Focus on Bloom's taxonomy.`,
-    activities: `Suggest a step-by-step classroom activity plan for teaching "${topic}" to secondary students. Include timing.`,
-    assessments: `Create a list of assessment instruments (formative and summative) for a lesson on "${topic}".`
+    outcomes: `Buatkan 3-4 capaian pembelajaran yang jelas dan terukur untuk pelajaran sekolah tentang "${topic}". Format sebagai daftar berpoin dalam Bahasa Indonesia.`,
+    objectives: `Tuliskan tujuan pembelajaran spesifik untuk siswa yang mempelajari "${topic}". Fokus pada taksonomi Bloom. Gunakan Bahasa Indonesia.`,
+    activities: `Sarankan rencana langkah kegiatan kelas langkah demi langkah untuk mengajarkan "${topic}" kepada siswa menengah. Sertakan waktu. Gunakan Bahasa Indonesia.`,
+    assessments: `Buat daftar instrumen penilaian (formatif dan sumatif) untuk pelajaran tentang "${topic}". Gunakan Bahasa Indonesia.`
   };
 
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
-      contents: prompts[section],
+      model: 'gemini-2.0-flash', // Use stable model
+      contents: [{
+        role: 'user',
+        parts: [{ text: prompts[section] }]
+      }],
     });
-    
-    return response.text || "No content generated.";
+
+    return response.text() || "Tidak ada konten yang dihasilkan.";
   } catch (error) {
     console.error("Gemini API Error:", error);
-    return "Error generating content. Please try again.";
+    return "Terjadi kesalahan saat membuat konten. Silakan coba lagi.";
   }
 };

@@ -1,14 +1,14 @@
 export enum DocumentStatus {
-  DRAFT = 'Draft',
+  DRAFT = 'Draf',
   FINAL = 'Final',
-  READY_TO_PRINT = 'Ready to Print'
+  READY_TO_PRINT = 'Siap Cetak'
 }
 
 export enum DocumentType {
-  TEACHING_MODULE = 'Teaching Module',
-  ACTIVITY_REPORT = 'Activity Report',
-  REFLECTION_SHEET = 'Reflection Sheet',
-  LESSON_PLAN = 'Lesson Plan'
+  TEACHING_MODULE = 'Modul Ajar',
+  ACTIVITY_REPORT = 'Laporan Kegiatan',
+  REFLECTION_SHEET = 'Lembar Refleksi',
+  LESSON_PLAN = 'Rencana Pembelajaran (RPP)'
 }
 
 export interface DocContent {
